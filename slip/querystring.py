@@ -55,11 +55,46 @@ def select_normal_slipinput(start_date=None, end_date=None, sq_acttax2=None):
 
     return query
 
+
+def select_slip(start_date=None, end_date=None):
+    """
+    매입매출전표입력 조회 쿼리
+    :param date: 해당날짜(일을 API에서 입력받았을 경우)
+    :param start_date: 시작날짜(일을 입력받지 않았을 경우, 해당 년도, 월의 1일.)
+    :param end_date: 종료날짜(일을 입력받지 않았을 경우, 해댱 년도, 월의 마지막 날.)
+    :return: SELECT query
+    """
+    query = """
+            SELECT
+              sq_acttax1,
+	          da_date,
+	          no_acct,
+	          ty_mth,
+	          ty_mth2,
+	          nm_good,
+	          qt_qty,
+	          unit,
+	          mn_mnam,
+	          mn_vat,
+	          (mn_mnam + mn_vat) as mn_total,
+	          cd_trade,
+	          nm_trade,
+	          no_bisocial,
+	          ty_bungae
+            from fta_acttax1
+            where no_acct > 50000
+            """
+
+    if start_date and end_date:
+        query += """AND  (da_date >= '%s' AND da_date <= '%s') """ % (start_date, end_date)
+
+    query += """ORDER BY da_date, no_acct"""
+
+    return query
+
 '''
 주석
 '''
-
-
 def select_cash_balance(start_date=None, end_date=None):
     query = """
         select

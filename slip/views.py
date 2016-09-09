@@ -11,8 +11,7 @@ from tapi.jsonutil import name_to_json, json_result
 
 import psycopg2
 
-from slip.querystring import select_normal_slipinput, select_cash_balance
-
+from slip.querystring import select_normal_slipinput, select_cash_balance, select_slip
 
 @api_view(['POST'])
 def select_data1(request):
@@ -33,9 +32,11 @@ def select_data1(request):
     return result
 
 
+# 데이터 조회
+# 호출형식 20160101/20160102
 @api_view(['GET'])
 def select_data(request, from_date, to_date):
-    query = select_normal_slipinput(start_date = from_date, end_date=to_date)
+    query = select_slip(start_date = from_date, end_date=to_date)
     try:
         state = status.HTTP_200_OK
         cursor = connection.cursor()
