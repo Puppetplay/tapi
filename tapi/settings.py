@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'tapi.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'polalis',
+        'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': '7113vkfl',
         'HOST': '127.0.0.1',
